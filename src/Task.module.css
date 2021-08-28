@@ -1,0 +1,136 @@
+:root {
+  --tick-color: dodgerblue;
+  --tick-thickness: 2px;
+  --tick-duration: 0.5s;
+  --strike-duration: 0.5s;
+  --fade-duration: 0.5s;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition-property: opacity;
+  transition-duration: var(--fade-duration);
+  transition-delay: calc(var(--strike-duration) + var(--tick-duration));
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.task input {
+  margin: 0;
+  padding: 0;
+}
+
+.task span {
+  flex: 1;
+}
+
+.task button {
+  border: none;
+  background: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.task button:hover {
+  transform: scale(1.1);
+}
+
+.task button:active {
+  transform: scale(0.9);
+}
+
+.task.done input, .task.done span {
+  opacity: 0.5;
+}
+
+.task::after {
+  display: block;
+  content: '';
+  border-bottom: var(--tick-thickness) solid #000;
+  position: absolute;
+  width: 0;
+  top: 50%;
+  margin-top: -2px;
+  left: 0;
+  transition: width 0.3s linear;
+  transition-property: width;
+  transition-duration: var(--strike-duration);
+  transition-delay: var(--tick-duration);
+}
+
+.task.done::after {
+  width: calc(100% - 2rem);
+}
+
+.task input {
+  appearance: none;
+  border: var(--tick-thickness) solid #DDD;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+}
+
+.task input::before, .task input::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background-color: var(--tick-color);
+  transform-origin: top left;
+  top: 90%;
+  left: 50%;
+}
+
+.task input::before {
+  height: 1rem;
+  width: var(--tick-thickness);
+  border: 1px solid #FFF;
+  margin-top: 1px;
+  margin-left: 1px;
+  transition-property: transform;
+  transition-duration: calc(var(--tick-duration)/2);
+  transition-delay: calc(var(--tick-duration)/2);
+  transform: rotate(-135deg)  scale(1, 0);
+}
+
+.task input::after {
+  height: var(--tick-thickness);
+  width: 0.5rem;
+  transition-property: transform;
+  transition-duration: calc(var(--tick-duration)/2);
+  transform: rotate(-135deg) scale(0, 1) translateX(100%);
+  transition-delay: 0;
+}
+
+.task input:checked::before, .task input:checked::after {
+  transform: rotate(-135deg) scale(1, 1) translateX(0);
+}
+
+.task_list {
+  margin: 0;
+  padding: 1rem;
+  list-style: none;
+}
+
+.task_form {
+  display: flex;
+  padding: 1rem 1rem 0;
+  gap: 1rem;
+}
+
+.task_form input {
+  flex: 1;
+  border: var(--tick-thickness) solid #DDD;
+  padding: 0.5rem;
+}
+
+.task_form button {
+  font-size: inherit;
+  background-color: #DDD;
+  border: var(--tick-thickness) solid #CCC;
+  padding: 0.5rem;
+  width: 3rem;
+}
