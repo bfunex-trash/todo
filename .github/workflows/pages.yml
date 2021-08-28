@@ -20,3 +20,4 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_TOKEN }}
           branch: pages
+          folder: build
